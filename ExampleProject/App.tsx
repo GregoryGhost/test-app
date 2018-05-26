@@ -9,7 +9,9 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  ListView,
+  Alert
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -21,39 +23,105 @@ const instructions = Platform.select({
 
 
 type Props = {};
+
 export default class App extends Component<Props> {
-  render() {
+constructor(props) {
+ 
+    super(props);
+ 
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    
+    this.state = {
+ 
+      dataSource: ds.cloneWithRows([
+           'Привет, Эдик!',
+            'Two',
+            'Three',
+            'Four',
+            'Five',
+            'Six',
+            'Seven',
+            'Eight',
+            'Nine',
+            'Ten',
+            'Eleven',
+            'Twelve',
+            'Two',
+            'Three',
+            'Four',
+            'Five',
+            'Six',
+            'Seven',
+            'Eight',
+            'Nine',
+            'Ten',
+            'Eleven',
+            'Twelve'
+        ]),
+    
+    };
+ 
+  }
+
+
+
+ListViewItemSeparator = () => {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <View
+        style={{
+          height: .5,
+          width: "100%",
+          backgroundColor: "#000",
+        }}
+      />
     );
   }
-}
+  
+
+GetListViewItem (rowData) {
+   
+  Alert.alert(rowData);
+ 
+  }
+
+render() {
+    return (
+ 
+<View style={styles.MainContainer}>
+  <ListView
+ 
+            dataSource={this.state.dataSource}
+ 
+            renderSeparator= {this.ListViewItemSeparator}
+ 
+            renderRow={
+                        (rowData) => <Text style={styles.rowViewContainer} onPress={this.GetListViewItem.bind(this, rowData + rowData.length)}>{rowData + " Размер сообщения: " + rowData.length}</Text>
+                      }
+ 
+          />  
+</View>
+            
+    );
+  }
+  }
+
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+ 
+  MainContainer :{
+  
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flex:1,
+    margin: 10
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
+  rowViewContainer: 
+  {
+
+    fontSize: 18,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+
+  }
 });
