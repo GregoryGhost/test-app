@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  */
 
-import React from 'react'
+import React, {Component} from 'react';
 import {
   Animated,
   Easing,
@@ -78,7 +78,7 @@ export default class App extends Component {
     );
   }
 
-  _renderRow = ({data, active}) => {
+  _renderRow = ({ data, active }) => {
     return <Row data={data} active={active} />
   }
 }
@@ -132,14 +132,14 @@ class Row extends Component {
   }
 
   render() {
-   const {data, active} = this.props;
+    const { data, active } = this.props;
 
     return (
       <Animated.View style={[
         styles.row,
         this._style,
       ]}>
-        <Image source={{uri: data.image}} style={styles.image} />
+        <Image source={{ uri: data.image }} style={styles.image} />
         <Text style={styles.text}>{data.text}</Text>
       </Animated.View>
     );
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
         width: window.width - 30 * 2,
         shadowColor: 'rgba(0,0,0,0.2)',
         shadowOpacity: 1,
-        shadowOffset: {height: 2, width: 2},
+        shadowOffset: { height: 2, width: 2 },
         shadowRadius: 2,
       },
 
