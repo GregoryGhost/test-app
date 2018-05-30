@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Animated,
   Easing,
@@ -12,57 +12,56 @@ import {
   Image,
   View,
   Dimensions,
-  Platform,
+  Platform
 } from 'react-native';
-import SortableList from 'react-native-sortable-list';
-
+import SortableList, { RowProps, DataByNumber }from 'react-native-sortable-list';
 
 
 const window = Dimensions.get('window');
 
-
-const data = {
+const data: DataByNumber = {
   0: {
     image: 'https://placekitten.com/200/240',
-    text: 'Chloe',
+    text: 'Chloe'
   },
   1: {
     image: 'https://placekitten.com/200/201',
-    text: 'Jasper',
+    text: 'Jasper'
   },
   2: {
     image: 'https://placekitten.com/200/202',
-    text: 'Pepper',
+    text: 'Pepper'
   },
   3: {
     image: 'https://placekitten.com/200/203',
-    text: 'Oscar',
+    text: 'Oscar'
   },
   4: {
     image: 'https://placekitten.com/200/204',
-    text: 'Dusty',
+    text: 'Dusty'
   },
   5: {
     image: 'https://placekitten.com/200/205',
-    text: 'Spooky',
+    text: 'Spooky'
   },
   6: {
     image: 'https://placekitten.com/200/210',
-    text: 'Kiki',
+    text: 'Kiki'
   },
   7: {
     image: 'https://placekitten.com/200/215',
-    text: 'Smokey',
+    text: 'Smokey'
   },
   8: {
     image: 'https://placekitten.com/200/220',
-    text: 'Gizmo',
+    text: 'Gizmo'
   },
   9: {
     image: 'https://placekitten.com/220/239',
-    text: 'Kitty',
-  },
+    text: 'Kitty'
+  }
 };
+
 
 export default class App extends Component {
   render() {
@@ -78,14 +77,18 @@ export default class App extends Component {
     );
   }
 
-  _renderRow = ({ data, active }) => {
+  _renderRow = (row: RowProps) => {
+    let { data, active } = row;
     return <Row data={data} active={active} />
   }
 }
 
-class Row extends Component {
 
-  constructor(props) {
+class Row extends Component<RowProps, any> {
+  private _active: Animated.Value;
+  private _style: any;
+
+  constructor(props: RowProps) {
     super(props);
 
     this._active = new Animated.Value(0);
@@ -121,7 +124,7 @@ class Row extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: RowProps) {
     if (this.props.active !== nextProps.active) {
       Animated.timing(this._active, {
         duration: 300,
@@ -132,7 +135,7 @@ class Row extends Component {
   }
 
   render() {
-    const { data, active } = this.props;
+    const { data } = this.props;
 
     return (
       <Animated.View style={[
@@ -145,6 +148,7 @@ class Row extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
